@@ -25,3 +25,10 @@ func UserStampRallyProgress(uid string) ([]model.UserStampRally, error) {
 	return us, err
 
 }
+
+func UserStampRallyReset(uid string) error {
+	us := model.UserStampRally{}
+	err := db.Delete(&us).Where("user_id = ?", uid).Error
+
+	return err
+}

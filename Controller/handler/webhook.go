@@ -104,6 +104,16 @@ func Webhook(ctx *gin.Context) {
 					} else {
 						uss.UserStampRallySessionValidToTrue(event.Source.UserID)
 					}
+				case "リセット":
+					uss.UserSessionClear(event.Source.UserID)
+					err = database.UserStampRallyReset(event.Source.UserID)
+					if err != nil {
+						panic(err)
+					}
+					_, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("スタンプラリーの進捗をリセットしました！")).Do()
+					if err != nil {
+						panic(err)
+					}
 
 				case "飲食店メニュー":
 					if uss.IsUserMenuSessionValid(event.Source.UserID) {
