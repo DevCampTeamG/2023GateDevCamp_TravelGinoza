@@ -78,7 +78,7 @@ func Webhook(ctx *gin.Context) {
 				case "スタンプラリー":
 					uss.UserSessionClear(event.Source.UserID)
 					MessageText := helper.ReadText("../static/texts/StampRallyHelp.txt")
-					var StampDone [4]string
+					StampDone := [4]string{"未押印", "未押印", "未押印", "未押印"}
 					ustamprally, err := database.UserStampRallyProgress(event.Source.UserID)
 					log.Println(ustamprally)
 					for _, us := range ustamprally {
