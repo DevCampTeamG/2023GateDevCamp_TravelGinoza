@@ -20,7 +20,7 @@ func UserStampRallyUpdate(uid string, sid uint) error {
 
 func UserStampRallyProgress(uid string) ([]model.UserStampRally, error) {
 	us := []model.UserStampRally{}
-	err := db.Find(&us).Where("user_id = ?", uid).Error
+	err := db.Find(&us, "user_id=?", uid).Error
 
 	return us, err
 
@@ -28,7 +28,8 @@ func UserStampRallyProgress(uid string) ([]model.UserStampRally, error) {
 
 func UserStampRallyReset(uid string) error {
 	us := model.UserStampRally{}
-	err := db.Where("user_id = ?", uid).Delete(&us).Error
+
+	err := db.Unscoped().Delete(&us, "user_id=?", uid).Error
 
 	return err
 }
