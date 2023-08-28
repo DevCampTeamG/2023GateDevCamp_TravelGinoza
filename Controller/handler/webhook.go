@@ -144,8 +144,10 @@ func Webhook(ctx *gin.Context) {
 						err = database.UserStampRallyUpdate(event.Source.UserID, 1)
 						if err != nil {
 							errstr = err.Error()
+							log.Println("err:" + errstr)
 						}
 						if strings.Contains(errstr, "UNIQUE") {
+							log.Println(errstr)
 							_, err = bot.ReplyMessage(event.ReplyToken, linebot.NewTextMessage("BBQのスタンプはすでに押されています！")).Do()
 							if err != nil {
 								log.Println(err)
